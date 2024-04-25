@@ -1,11 +1,22 @@
 <?php
 echo "que pedo!";
-$conn = pg_connect("host=localhost port=5432 dbname=rest_api_demo user=postgres password=admin");
-
 class Database
 {
-  protected const CONN_STR = "host=localhost port=5432 dbname=rest_api_demo user=postgres";
+  protected const CONN_STR = "host=localhost port=5432 dbname=rest_api_demo user=postgres password=admin";
   protected $connection = null;
+
+  public function __construct()
+  {
+    try {
+      $this->connection = pg_connect(self::CONN_STR);
+
+      if (!$this->connection) {
+        throw new Exception("Could not connect to database.");
+      }
+    } catch (Exception $e) {
+      throw new Exception($e->getMessage());
+    }
+  }
 
   static function connect()
   {
