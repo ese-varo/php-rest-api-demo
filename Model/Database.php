@@ -18,6 +18,28 @@ class Database
     }
   }
 
+  public function select($query = "", $params = [])
+  {
+    try {
+    } catch (Exception $e) {
+      throw new Exception($e->getMessage());
+    }
+    return false;
+  }
+
+  private function executeStatement($query = "", $params = [])
+  {
+    try {
+      // $stmt = $this->connection->prepare($query);
+
+      // if($stmt === false) {
+      //   throw New Exception("Unable to do prepared statement: " . $query);
+      // }
+    } catch (Exception $e) {
+      throw new Exception($e->getMessage());
+    }
+  }
+
   static function connect()
   {
     $conn = pg_connect("host=localhost port=5432 dbname=rest_api_demo user=postgres password=admin");
@@ -26,7 +48,8 @@ class Database
       exit;
     }
     $result = pg_query($conn, "select * from users");
-    var_dump(pg_fetch_all($result));
+    // var_dump(pg_fetch_all($result));
+    echo (pg_options($conn));
   }
 }
 
